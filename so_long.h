@@ -6,7 +6,7 @@
 /*   By: axlamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:39:02 by axlamber          #+#    #+#             */
-/*   Updated: 2022/11/15 13:14:55 by axlamber         ###   ########.fr       */
+/*   Updated: 2022/11/18 18:10:19 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,33 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+
+# define WIDTH 1280
+# define HEIGTH 720
+
+# define ESC 65307
+# define A 97
+# define W 119
+# define D 100
+# define S 115
+# define DINO "./images/dino48.xpm"
+# define WALL "./images/wall48.xpm"
+
+typedef	struct	s_vars
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	char	**map;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		dino_heigth;
+	int		dino_width;
+	int		x;
+	int		y;
+}				t_vars;
 
 char	**ft_split(char *s, char c);
 char	**fd_to_map(int fd);
