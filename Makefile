@@ -6,7 +6,7 @@
 #    By: axlamber <marvin@42.fr>                     +#+  +:+       +#+        #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 17:19:09 by axlamber           #+#    #+#             #
-#    Updated: 2022/11/19 21:04:40 by rukkyaa          ###   ########.fr        #
+#    Updated: 2022/11/21 14:47:22 by axlamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJS = ${SRC:.c=.o}
 INCLUDE = includes/
 
 .c.o :
-	cc -Wall -Wextra -I/usr/include -Imlx_linux -O3 -c $< -o ${<:.c=.o}
+	cc -Wall -Wextra -g -I/usr/include -Imlx_linux -O3 -c $< -o ${<:.c=.o}
 
 all: ${NAME}
 

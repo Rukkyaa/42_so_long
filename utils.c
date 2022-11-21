@@ -6,7 +6,7 @@
 /*   By: rukkyaa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 20:54:15 by rukkyaa           #+#    #+#             */
-/*   Updated: 2022/11/20 00:20:29 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2022/11/21 14:57:48 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	var_init(t_vars *vars)
 	vars->win = mlx_new_window(vars->mlx, WIDTH, HEIGTH, "so_long");
 	vars->dino_img = mlx_xpm_file_to_image(vars->mlx, DINO, &vars->img_heigth,
 			&vars->img_width);
+	vars->dino_door_img = mlx_xpm_file_to_image(vars->mlx, DINO_DOOR,
+			&vars->img_heigth, &vars->img_width);
 	vars->wall_img = mlx_xpm_file_to_image(vars->mlx, WALL, &vars->img_heigth,
 			&vars->img_width);
 	vars->grass_img = mlx_xpm_file_to_image(vars->mlx, GRASS, &vars->img_heigth,
@@ -28,6 +30,7 @@ void	var_init(t_vars *vars)
 			&vars->img_width);
 	vars->item_total = 0;
 	vars->items = 0;
+	vars->move = 0;
 	vars->x = 48;
 	vars->y = 48;
 }
@@ -42,7 +45,16 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 
 int	close_window(t_vars *vars)
 {
+	mlx_destroy_image(vars->mlx, vars->wall_img);
+	mlx_destroy_image(vars->mlx, vars->dino_img);
+	mlx_destroy_image(vars->mlx, vars->dino_door_img);
+	mlx_destroy_image(vars->mlx, vars->grass_img);
+	mlx_destroy_image(vars->mlx, vars->cake_img);
+	mlx_destroy_image(vars->mlx, vars->exit_img);
 	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
+	free_array(vars->map);
 	exit(0);
 }
 

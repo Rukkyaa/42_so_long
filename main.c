@@ -6,7 +6,7 @@
 /*   By: axlamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 15:07:00 by axlamber          #+#    #+#             */
-/*   Updated: 2022/11/20 00:28:04 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2022/11/21 14:58:38 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (EXIT_FAILURE);
-	var_init(&vars);
 	vars.map = get_map(argv[1]);
 	if (!vars.map)
 		return (EXIT_FAILURE);
+	var_init(&vars);
 	map_init(&vars);
-	mlx_hook(vars.win, 2, 1L<<0, key_gestion, &vars);
+	mlx_hook(vars.win, 2, 1L << 0, key_gestion, &vars);
 	mlx_hook(vars.win, 17, 0, close_window, &vars);
 	mlx_loop(vars.mlx);
 	return (EXIT_SUCCESS);

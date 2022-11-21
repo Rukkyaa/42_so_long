@@ -6,7 +6,7 @@
 /*   By: rukkyaa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 20:57:59 by rukkyaa           #+#    #+#             */
-/*   Updated: 2022/11/19 23:58:01 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2022/11/21 14:58:25 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,10 @@ char	**get_map(char *arg)
 		free_array(map);
 		return (NULL);
 	}
+	/*
 	printf("size : %d\n", check_size(map));
 	while (map[i])
 		printf("%s\n", map[i ++]);
+		*/
 	return (map);
 }

@@ -6,7 +6,7 @@
 /*   By: axlamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:39:02 by axlamber          #+#    #+#             */
-/*   Updated: 2022/11/20 00:10:21 by rukkyaa          ###   ########.fr       */
+/*   Updated: 2022/11/21 14:57:29 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@
 # define W 119
 # define D 100
 # define S 115
-# define DINO "./images/dino48.xpm"
+# define DINO "./images/dinograss48.xpm"
+# define DINO_DOOR "./images/dino_door48.xpm"
 # define WALL "./images/wall48.xpm"
 # define GRASS "./images/grass48.xpm"
-# define CAKE "./images/strawberry48.xpm"
+# define CAKE "./images/strawberrygrass_48.xpm"
 # define EXIT "./images/trap48.xpm"
 
 typedef	struct	s_vars
@@ -56,7 +57,9 @@ typedef	struct	s_vars
 	int		y;
 	int		item_total;
 	int		items;
+	int		move;
 	void	*dino_img;
+	void	*dino_door_img;
 	void	*wall_img;
 	void	*grass_img;
 	void	*cake_img;
