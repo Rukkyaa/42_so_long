@@ -6,7 +6,7 @@
 /*   By: axlamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:39:02 by axlamber          #+#    #+#             */
-/*   Updated: 2022/11/22 14:37:28 by axlamber         ###   ########.fr       */
+/*   Updated: 2022/11/22 17:20:46 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@
 # define CAKE "./images/strawberrygrass_48.xpm"
 # define EXIT "./images/trap48.xpm"
 # define START "./images/start48.xpm"
+# define WATER "./images/water48.xpm"
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}				t_point;
 
 typedef struct s_image
 {
@@ -56,6 +63,7 @@ typedef struct s_image
 	void	*grass_img;
 	void	*exit_img;
 	void	*start_img;
+	void	*water_img;
 	char	*pos;
 }				t_image;
 
@@ -73,9 +81,12 @@ typedef	struct	s_vars
 	int		img_width;
 	int		x;
 	int		y;
+	int		item_inond;
 	int		item_total;
 	int		items;
 	int		move;
+	t_point	start;
+	t_point	end;
 	t_image	image;
 }				t_vars;
 
@@ -89,6 +100,7 @@ void	free_array(char **map);
 
 // MAPS
 char	**get_map(char *arg);
+int		inondation(t_vars *vars);
 void	map_init(t_vars *vars);
 
 // HOOK
