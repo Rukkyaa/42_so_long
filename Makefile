@@ -6,13 +6,13 @@
 #    By: axlamber <marvin@42.fr>                     +#+  +:+       +#+        #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/18 17:19:09 by axlamber           #+#    #+#             #
-#    Updated: 2022/11/21 14:47:22 by axlamber         ###   ########.fr        #
+#    Updated: 2022/11/22 11:35:25 by axlamber         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SRC = ft_join.c ft_split.c main.c parsing.c utils.c move.c map.c
+SRC = ft_join.c ft_split.c main.c parsing.c utils.c utils2.c move.c map.c
 
 OBJS = ${SRC:.c=.o}
 

@@ -6,11 +6,32 @@
 /*   By: rukkyaa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 20:57:59 by rukkyaa           #+#    #+#             */
-/*   Updated: 2022/11/21 14:58:25 by axlamber         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:43:27 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	map_gen_texture(t_vars *vars, char c, int x, int y)
+{
+	if (c == '1')
+		put_img(vars, vars->image.wall_img, x, y);
+	else if (c == '0')
+		put_img(vars, vars->image.grass_img, x, y);
+	else if (c == 'C')
+	{
+		put_img(vars, vars->image.cake_img, x, y);
+		vars->item_total++;
+	}
+	else if (c == 'E')
+		put_img(vars, vars->image.exit_img, x, y);
+	else if (c == 'P')
+	{
+		vars->x = x;
+		vars->y = y;
+		put_img(vars, vars->image.dino_start_img, x, y);
+	}
+}
 
 void	map_init(t_vars *vars)
 {
@@ -27,22 +48,11 @@ void	map_init(t_vars *vars)
 		x = 0;
 		while (vars->map[i][++j])
 		{
-			if (vars->map[i][j] == '1')
-				put_img(vars, vars->wall_img, x, y);
-			else if (vars->map[i][j] == '0')
-				put_img(vars, vars->grass_img, x, y);
-			else if (vars->map[i][j] == 'C')
-			{
-				put_img(vars, vars->cake_img, x, y);
-				vars->item_total ++;
-			}
-			else if (vars->map[i][j] == 'E')
-				put_img(vars, vars->exit_img, x, y);
+			map_gen_texture(vars, vars->map[i][j], x, y);
 			x += vars->img_width;
 		}
 		y += vars->img_heigth;
 	}
-	put_img(vars, vars->dino_img, vars->img_heigth, vars->img_width);
 }
 
 char	**get_map(char *arg)
@@ -63,10 +73,5 @@ char	**get_map(char *arg)
 		free_array(map);
 		return (NULL);
 	}
-	/*
-	printf("size : %d\n", check_size(map));
-	while (map[i])
-		printf("%s\n", map[i ++]);
-		*/
 	return (map);
 }

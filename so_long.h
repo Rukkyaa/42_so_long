@@ -6,7 +6,7 @@
 /*   By: axlamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:39:02 by axlamber          #+#    #+#             */
-/*   Updated: 2022/11/21 14:57:29 by axlamber         ###   ########.fr       */
+/*   Updated: 2022/11/22 14:37:28 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
@@ -34,12 +35,29 @@
 # define W 119
 # define D 100
 # define S 115
-# define DINO "./images/dinograss48.xpm"
+# define DINO_RIGHT "./images/dinoright48.xpm"
+# define DINO_LEFT "./images/dinoleft48.xpm"
 # define DINO_DOOR "./images/dino_door48.xpm"
+# define DINO_START "./images/dinostart48.xpm"
 # define WALL "./images/wall48.xpm"
 # define GRASS "./images/grass48.xpm"
 # define CAKE "./images/strawberrygrass_48.xpm"
 # define EXIT "./images/trap48.xpm"
+# define START "./images/start48.xpm"
+
+typedef struct s_image
+{
+	void	*dinoright_img;
+	void	*dinoleft_img;
+	void	*dino_door_img;
+	void	*dino_start_img;
+	void	*wall_img;
+	void	*cake_img;
+	void	*grass_img;
+	void	*exit_img;
+	void	*start_img;
+	char	*pos;
+}				t_image;
 
 typedef	struct	s_vars
 {
@@ -58,12 +76,7 @@ typedef	struct	s_vars
 	int		item_total;
 	int		items;
 	int		move;
-	void	*dino_img;
-	void	*dino_door_img;
-	void	*wall_img;
-	void	*grass_img;
-	void	*cake_img;
-	void	*exit_img;
+	t_image	image;
 }				t_vars;
 
 char	**ft_split(char *s, char c);
@@ -89,6 +102,7 @@ int		close_window(t_vars *vars);
 void	var_init(t_vars *vars);
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 void	put_img(t_vars *vars, void *image, int x, int y);
+void	put_dino(t_vars *vars, int x, int y);
 int		key_gestion(int keycode, t_vars *vars);
 
 #endif
