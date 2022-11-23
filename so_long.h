@@ -6,7 +6,7 @@
 /*   By: axlamber <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 10:39:02 by axlamber          #+#    #+#             */
-/*   Updated: 2022/11/22 17:20:46 by axlamber         ###   ########.fr       */
+/*   Updated: 2022/11/23 11:21:58 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,30 @@
 # define W 119
 # define D 100
 # define S 115
-# define DINO_RIGHT "./images/dinoright48.xpm"
-# define DINO_LEFT "./images/dinoleft48.xpm"
-# define DINO_DOOR "./images/dino_door48.xpm"
-# define DINO_START "./images/dinostart48.xpm"
-# define WALL "./images/wall48.xpm"
-# define GRASS "./images/grass48.xpm"
-# define CAKE "./images/strawberrygrass_48.xpm"
-# define EXIT "./images/trap48.xpm"
-# define START "./images/start48.xpm"
-# define WATER "./images/water48.xpm"
+
+/* IMAGES PATHS */
+# define DINO_RIGHT_PATH "./images/dinoright48.xpm"
+# define DINO_LEFT_PATH "./images/dinoleft48.xpm"
+# define DINO_DOOR_PATH "./images/dino_door48.xpm"
+# define DINO_START_PATH "./images/dinostart48.xpm"
+# define WALL_PATH "./images/wall48.xpm"
+# define GRASS_PATH "./images/grass48.xpm"
+# define CAKE_PATH "./images/strawberrygrass_48.xpm"
+# define EXIT_PATH "./images/trap48.xpm"
+# define START_PATH "./images/start48.xpm"
+# define WATER_PATH "./images/water48.xpm"
+
+/* IMAGES INDEX */
+# define DINO_RIGHT_INDEX 0
+# define DINO_LEFT_INDEX 1
+# define DINO_DOOR_INDEX 2
+# define DINO_START_INDEX 3
+# define WALL_INDEX 4
+# define GRASS_INDEX 5
+# define CAKE_INDEX 6
+# define EXIT_INDEX 7
+# define START_INDEX 8
+# define WATER_INDEX 9
 
 typedef struct s_point
 {
@@ -64,7 +78,6 @@ typedef struct s_image
 	void	*exit_img;
 	void	*start_img;
 	void	*water_img;
-	char	*pos;
 }				t_image;
 
 typedef	struct	s_vars
@@ -85,9 +98,10 @@ typedef	struct	s_vars
 	int		item_total;
 	int		items;
 	int		move;
+	char	*pos;
 	t_point	start;
 	t_point	end;
-	t_image	image;
+	void	*texture[10];
 }				t_vars;
 
 char	**ft_split(char *s, char c);
@@ -100,8 +114,12 @@ void	free_array(char **map);
 
 // MAPS
 char	**get_map(char *arg);
+char	**dup_map(char **map);
+int		get_height(char **split);
 int		inondation(t_vars *vars);
+int		valid_name(char *arg);
 void	map_init(t_vars *vars);
+void	fill_voisin(t_vars *vars, char **map, int x, int y);
 
 // HOOK
 void	up(t_vars *vars);
@@ -115,6 +133,9 @@ void	var_init(t_vars *vars);
 void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color);
 void	put_img(t_vars *vars, void *image, int x, int y);
 void	put_dino(t_vars *vars, int x, int y);
+void	item_collect(t_vars *vars);
 int		key_gestion(int keycode, t_vars *vars);
 
+// Error
+void	ft_error(int flag);
 #endif

@@ -6,37 +6,57 @@
 /*   By: rukkyaa <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 20:54:15 by rukkyaa           #+#    #+#             */
-/*   Updated: 2022/11/22 15:03:31 by axlamber         ###   ########.fr       */
+/*   Updated: 2022/11/23 11:46:55 by axlamber         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	fail_xpm(t_vars *vars, int index)
+{
+	int	i;
+
+	i = -1;
+	while (++i < index)
+		mlx_destroy_image(vars->mlx, vars->texture[i]);
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	free(vars->mlx);
+	free_array(vars->map);
+	exit(0);
+}
+
+void	*ft_open_xpm(t_vars *vars, char *path, int index)
+{
+	void	*img;
+
+	img = mlx_xpm_file_to_image(vars->mlx, path, &vars->img_heigth,
+			&vars->img_width);
+	if (!img)
+		fail_xpm(vars, index);
+	return (img);
+}
+
+void	img_init(t_vars *vars)
+{
+	vars->texture[0] = ft_open_xpm(vars, DINO_RIGHT_PATH, 0);
+	vars->texture[1] = ft_open_xpm(vars, DINO_LEFT_PATH, 1);
+	vars->texture[2] = ft_open_xpm(vars, DINO_DOOR_PATH, 2);
+	vars->texture[3] = ft_open_xpm(vars, DINO_START_PATH, 3);
+	vars->texture[4] = ft_open_xpm(vars, WALL_PATH, 4);
+	vars->texture[5] = ft_open_xpm(vars, GRASS_PATH, 5);
+	vars->texture[6] = ft_open_xpm(vars, CAKE_PATH, 6);
+	vars->texture[7] = ft_open_xpm(vars, EXIT_PATH, 7);
+	vars->texture[8] = ft_open_xpm(vars, START_PATH, 8);
+	vars->texture[9] = ft_open_xpm(vars, WATER_PATH, 9);
+}
+
 void	var_init(t_vars *vars)
 {
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx, WIDTH, HEIGTH, "so_long");
-	vars->image.dinoright_img = mlx_xpm_file_to_image(vars->mlx, DINO_RIGHT,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.dinoleft_img = mlx_xpm_file_to_image(vars->mlx, DINO_LEFT,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.dino_door_img = mlx_xpm_file_to_image(vars->mlx, DINO_DOOR,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.dino_start_img = mlx_xpm_file_to_image(vars->mlx, DINO_START,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.wall_img = mlx_xpm_file_to_image(vars->mlx, WALL,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.grass_img = mlx_xpm_file_to_image(vars->mlx, GRASS,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.cake_img = mlx_xpm_file_to_image(vars->mlx, CAKE,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.exit_img = mlx_xpm_file_to_image(vars->mlx, EXIT,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.start_img = mlx_xpm_file_to_image(vars->mlx, START,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.water_img = mlx_xpm_file_to_image(vars->mlx, WATER,
-			&vars->img_heigth, &vars->img_width);
-	vars->image.pos = "right";
+	img_init(vars);
+	vars->pos = "right";
 	vars->item_total = 0;
 	vars->items = 0;
 	vars->move = 0;
@@ -54,26 +74,16 @@ void	my_mlx_pixel_put(t_vars *vars, int x, int y, int color)
 
 int	close_window(t_vars *vars)
 {
-	mlx_destroy_image(vars->mlx, vars->image.wall_img);
-	mlx_destroy_image(vars->mlx, vars->image.dinoright_img);
-	mlx_destroy_image(vars->mlx, vars->image.dinoleft_img);
-	mlx_destroy_image(vars->mlx, vars->image.dino_door_img);
-	mlx_destroy_image(vars->mlx, vars->image.dino_start_img);
-	mlx_destroy_image(vars->mlx, vars->image.grass_img);
-	mlx_destroy_image(vars->mlx, vars->image.cake_img);
-	mlx_destroy_image(vars->mlx, vars->image.exit_img);
-	mlx_destroy_image(vars->mlx, vars->image.start_img);
-	mlx_destroy_image(vars->mlx, vars->image.water_img);
+	int	i;
+
+	i = -1;
+	while (++i < 10)
+		mlx_destroy_image(vars->mlx, vars->texture[i]);
 	mlx_destroy_window(vars->mlx, vars->win);
 	mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
 	free_array(vars->map);
 	exit(0);
-}
-
-void	put_img(t_vars *vars, void *img, int x, int y)
-{
-	mlx_put_image_to_window(vars->mlx, vars->win, img, x, y);
 }
 
 int	key_gestion(int keycode, t_vars *vars)
